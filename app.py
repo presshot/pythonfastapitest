@@ -16,16 +16,13 @@ def read_root():
 @app.get("/rtty")
 def execute_rtty():
     # Execute rtty command
-    rtty_command = "whomai"
-    process = Popen(rtty_command, shell=True, stdout=PIPE, stderr=PIPE)
-    rtty_output, rtty_error = process.communicate()
     return {"rtty":  "text"}
 
 
 @app.get("/ex/{command}")
 async def execute_command(command: str):
     try:
-        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
         output, error = process.communicate()
         return {"output": output.decode("utf-8"), "error": error.decode("utf-8")}
     except Exception as e:
